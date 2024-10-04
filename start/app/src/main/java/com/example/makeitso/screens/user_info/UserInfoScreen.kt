@@ -46,6 +46,8 @@ import com.example.makeitso.model.Priority
 import com.example.makeitso.model.User
 import com.example.makeitso.screens.edit_task.EditFlagOption
 import com.example.makeitso.screens.edit_task.EditTaskViewModel
+import com.example.makeitso.screens.login.email_info
+import com.example.makeitso.screens.settings.login
 import com.example.makeitso.theme.MakeItSoTheme
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
@@ -89,7 +91,7 @@ fun UserInfoScreenContent(
         ActionToolbar(
             title = AppText.user_info,
             modifier = Modifier.toolbarActions(),
-            endActionIcon = AppIcon.ic_settings,
+            endActionIcon = AppIcon.ic_check,
             endAction = { onDoneClick() }
         )
 
@@ -98,8 +100,14 @@ fun UserInfoScreenContent(
         val fieldModifier = Modifier.fieldModifier()
         BasicField(AppText.name, user.name, onNameChange, fieldModifier)
         CardEditors(user, onDateBirthChange, activity)
-        UnmutableBasicField("Логин: ", fieldModifier)
-        UnmutableBasicField("Метод аутентификации: ", fieldModifier)
+        if(login){
+            UnmutableBasicField("Логин: $email_info", fieldModifier)
+            UnmutableBasicField("Метод аутентификации: логин", fieldModifier)
+        }
+        else{
+            UnmutableBasicField("Логин: -", fieldModifier)
+            UnmutableBasicField("Метод аутентификации: google", fieldModifier)
+        }
         //BasicField(AppText.login, task.url, onUrlChange, fieldModifier)
         //BasicField(AppText.auth_method, task.url, onUrlChange, fieldModifier)
     }

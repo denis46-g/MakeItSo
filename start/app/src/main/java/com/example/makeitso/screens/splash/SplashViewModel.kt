@@ -47,11 +47,14 @@ class SplashViewModel @Inject constructor(
 
     showError.value = false
     if (accountService.hasUser) openAndPopUp(TASKS_SCREEN, SPLASH_SCREEN)
-    //else createAnonymousAccount(openAndPopUp)
-    else openAndPopUp(SETTINGS_SCREEN, SPLASH_SCREEN)
+    else{
+      //createAnonymousAccount(openAndPopUp)
+      openAndPopUp(SETTINGS_SCREEN, SPLASH_SCREEN)
+    }
+    //openAndPopUp(SETTINGS_SCREEN, SPLASH_SCREEN)
   }
 
-  /*private fun createAnonymousAccount(openAndPopUp: (String, String) -> Unit) {
+  private fun createAnonymousAccount(openAndPopUp: (String, String) -> Unit) {
     launchCatching(snackbar = false) {
       try {
         accountService.createAnonymousAccount()
@@ -61,5 +64,5 @@ class SplashViewModel @Inject constructor(
       }
       openAndPopUp(TASKS_SCREEN, SPLASH_SCREEN)
     }
-  }*/
+  }
 }

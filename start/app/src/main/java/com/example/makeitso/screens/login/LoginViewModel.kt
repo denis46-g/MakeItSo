@@ -29,6 +29,8 @@ import com.example.makeitso.screens.MakeItSoViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+var email_info = ""
+
 @HiltViewModel
 class LoginViewModel @Inject constructor(
   private val accountService: AccountService,
@@ -63,6 +65,7 @@ class LoginViewModel @Inject constructor(
 
     launchCatching {
       accountService.authenticate(email, password)
+      email_info = email
       openAndPopUp(TASKS_SCREEN, LOGIN_SCREEN)
     }
   }

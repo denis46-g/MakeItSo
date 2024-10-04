@@ -33,6 +33,9 @@ import com.example.makeitso.common.ext.card
 import com.example.makeitso.common.ext.spacer
 import com.example.makeitso.theme.MakeItSoTheme
 
+var login = false
+var google = false
+
 @ExperimentalMaterialApi
 @Composable
 fun SettingsScreen(
@@ -77,11 +80,18 @@ fun SettingsScreenContent(
     Spacer(modifier = Modifier.spacer())
 
     if (uiState.isAnonymousAccount) {
+      if(login)
+        login = false
+      if(google)
+        google = false
+
       RegularCardEditor(AppText.sign_in, AppIcon.ic_sign_in, "", Modifier.card()) {
+        login = true
         onLoginClick()
       }
 
       RegularCardEditor(AppText.sign_in_google, AppIcon.ic_sign_in, "", Modifier.card()) {
+        google = true
         onLoginClick()
       }
 

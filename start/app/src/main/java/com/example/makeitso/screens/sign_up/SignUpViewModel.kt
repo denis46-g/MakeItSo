@@ -27,6 +27,7 @@ import com.example.makeitso.common.snackbar.SnackbarManager
 import com.example.makeitso.model.service.AccountService
 import com.example.makeitso.model.service.LogService
 import com.example.makeitso.screens.MakeItSoViewModel
+import com.example.makeitso.screens.login.email_info
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -73,6 +74,7 @@ class SignUpViewModel @Inject constructor(
 
     launchCatching {
       accountService.linkAccount(email, password)
+      email_info = email
       openAndPopUp(SETTINGS_SCREEN, SIGN_UP_SCREEN)
     }
   }

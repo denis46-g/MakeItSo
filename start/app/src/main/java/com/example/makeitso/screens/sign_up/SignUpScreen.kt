@@ -33,7 +33,6 @@ import com.example.makeitso.common.ext.basicButton
 import com.example.makeitso.common.ext.card
 import com.example.makeitso.common.ext.fieldModifier
 import com.example.makeitso.model.User
-import com.example.makeitso.screens.user_info.CardEditors
 import com.example.makeitso.theme.MakeItSoTheme
 import com.google.android.material.datepicker.MaterialDatePicker
 
@@ -57,7 +56,6 @@ fun SignUpScreen(
 fun SignUpScreenContent(
   modifier: Modifier = Modifier,
   uiState: SignUpUiState,
-  onNameChange: (String) -> Unit,
   onEmailChange: (String) -> Unit,
   onPasswordChange: (String) -> Unit,
   onRepeatPasswordChange: (String) -> Unit,
@@ -73,7 +71,6 @@ fun SignUpScreenContent(
     horizontalAlignment = Alignment.CenterHorizontally
   ) {
 
-    BasicField(AppText.name, "", onNameChange, fieldModifier)
     EmailField(uiState.email, onEmailChange, fieldModifier)
     PasswordField(uiState.password, onPasswordChange, fieldModifier)
     RepeatPasswordField(uiState.repeatPassword, onRepeatPasswordChange, fieldModifier)
@@ -83,17 +80,6 @@ fun SignUpScreenContent(
     }
   }
 }
-
-@ExperimentalMaterialApi
-@Composable
-/*private fun CardEditors(
-  onDateChange: (Long) -> Unit,
-  activity: AppCompatActivity?
-) {
-  RegularCardEditor(AppText.birth_date, R.drawable.ic_calendar, user.birthDate, Modifier.card()) {
-    showDatePicker(activity, onDateChange)
-  }
-}*/
 
 private fun showDatePicker(activity: AppCompatActivity?, onDateChange: (Long) -> Unit) {
   val picker = MaterialDatePicker.Builder.datePicker().build()
