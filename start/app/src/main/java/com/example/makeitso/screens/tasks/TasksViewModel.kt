@@ -66,6 +66,6 @@ class TasksViewModel @Inject constructor(
   }
 
   private fun onDeleteTaskClick(task: Task) {
-    launchCatching { storageService.delete(task.id) }
+    launchCatching { storageService.delete_task(task.id) }
   }
 }

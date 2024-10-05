@@ -16,6 +16,7 @@ limitations under the License.
 
 package com.example.makeitso.screens.login
 
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import com.example.makeitso.LOGIN_SCREEN
 import com.example.makeitso.R.string as AppText
@@ -23,17 +24,21 @@ import com.example.makeitso.SETTINGS_SCREEN
 import com.example.makeitso.TASKS_SCREEN
 import com.example.makeitso.common.ext.isValidEmail
 import com.example.makeitso.common.snackbar.SnackbarManager
+import com.example.makeitso.model.User
 import com.example.makeitso.model.service.AccountService
 import com.example.makeitso.model.service.LogService
+import com.example.makeitso.model.service.StorageService
 import com.example.makeitso.screens.MakeItSoViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 var email_info = ""
+var user: MutableState<User> = mutableStateOf(User())
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
   private val accountService: AccountService,
+  private val storageService: StorageService,
   logService: LogService
 ) : MakeItSoViewModel(logService) {
   var uiState = mutableStateOf(LoginUiState())

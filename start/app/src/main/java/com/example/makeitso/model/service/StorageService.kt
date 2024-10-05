@@ -22,13 +22,14 @@ import kotlinx.coroutines.flow.Flow
 
 interface StorageService {
   val tasks: Flow<List<Task>>
+  val user: Flow<User>
   suspend fun getTask(taskId: String): Task?
   suspend fun save(task: Task): String
   suspend fun update(task: Task)
-  suspend fun delete(taskId: String)
+  suspend fun delete_task(taskId: String)
 
   suspend fun getUser(userId: String): User?
   suspend fun save(user: User): String
   suspend fun update(user: User)
-  //suspend fun delete(userId: String)
+  suspend fun delete_user(userId: String)
 }

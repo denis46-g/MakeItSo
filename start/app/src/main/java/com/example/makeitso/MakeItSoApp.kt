@@ -144,8 +144,8 @@ fun NavGraphBuilder.makeItSoGraph(appState: MakeItSoAppState) {
   composable(TASKS_SCREEN) { TasksScreen(openScreen = { route -> appState.navigate(route) }) }
 
   composable(
-    route = "$USER_INFO_SCREEN$TASK_ID_ARG",
-    arguments = listOf(navArgument(TASK_ID) {
+    route = "$USER_INFO_SCREEN$USER_ID_ARG",
+    arguments = listOf(navArgument(USER_ID) {
       nullable = true
       defaultValue = null
     })

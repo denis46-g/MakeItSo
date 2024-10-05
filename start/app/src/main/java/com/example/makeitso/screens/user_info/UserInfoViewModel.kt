@@ -1,20 +1,25 @@
 package com.example.makeitso.screens.user_info
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import com.example.makeitso.USER_ID
 import com.example.makeitso.common.ext.idFromParameter
 import com.example.makeitso.model.User
+import com.example.makeitso.model.service.AccountService
 import com.example.makeitso.model.service.LogService
 import com.example.makeitso.model.service.StorageService
 import com.example.makeitso.screens.MakeItSoViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.flatMapLatest
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
 class UserInfoViewModel @Inject constructor(
+    //private val accountService: AccountService,
     savedStateHandle: SavedStateHandle,
     logService: LogService,
     private val storageService: StorageService,
@@ -22,10 +27,12 @@ class UserInfoViewModel @Inject constructor(
     val user = mutableStateOf(User())
 
     init {
-        val userId = savedStateHandle.get<String>(USER_ID)
-        if (userId != null) {
-            launchCatching {
-                user.value = storageService.getUser(userId.idFromParameter()) ?: User()
+        launchCatching {
+            storageService.user.collect{
+                user.value = user.value.copy(name = it.name)
+                user.value = user.value.copy(birthDate = it.birthDate)
+                user.value = user.value.copy(userId = it.userId)
+                user.value = user.value.copy(isAnonymous = it.isAnonymous)
             }
         }
     }
@@ -44,7 +51,7 @@ class UserInfoViewModel @Inject constructor(
     fun onDoneClick(popUpScreen: () -> Unit) {
         launchCatching {
             val User = user.value
-            if (User.id.isBlank()) {
+            if (User.userId.isBlank()) {
                 storageService.save(User)
             } else {
                 storageService.update(User)

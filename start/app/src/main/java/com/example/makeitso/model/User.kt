@@ -16,8 +16,10 @@ limitations under the License.
 
 package com.example.makeitso.model
 
+import com.google.firebase.firestore.DocumentId
+
 data class User(
-    val id: String = "",
+    var userId: String = "",
     val isAnonymous: Boolean = true,
     val name: String = "",
     val birthDate: String = ""

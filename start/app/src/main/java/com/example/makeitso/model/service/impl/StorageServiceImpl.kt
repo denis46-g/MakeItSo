@@ -29,7 +29,9 @@ import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.tasks.await
+
 
 class StorageServiceImpl
 @Inject
@@ -41,7 +43,15 @@ constructor(private val firestore: FirebaseFirestore, private val auth: AccountS
     //get() = emptyFlow()
     get() =
       auth.currentUser.flatMapLatest { user ->
-        firestore.collection(TASK_COLLECTION).whereEqualTo(USER_ID_FIELD, user.id).dataObjects()
+        firestore.collection(TASK_COLLECTION).whereEqualTo(USER_ID_FIELD, user.userId).dataObjects()
+      }
+
+  @OptIn(ExperimentalCoroutinesApi::class)
+  override val user: Flow<User>
+    //get() = emptyFlow()
+    get() =
+      auth.currentUser.flatMapLatest { user ->
+        firestore.collection(USER_COLLECTION).whereEqualTo(USER_ID_FIELD, user.userId).dataObjects<User>().map{ it.first() }
       }
 
   override suspend fun getTask(taskId: String): Task? =
@@ -52,18 +62,18 @@ constructor(private val firestore: FirebaseFirestore, private val auth: AccountS
 
   override suspend fun save(user: User): String =
     trace(SAVE_USER_TRACE) {
-      //val taskWithUserId = user.copy(userId = auth.currentUserId)
-      firestore.collection(USER_COLLECTION).add(user).await().id
+      val uuser = user.copy(userId = auth.currentUserId)
+      firestore.collection(USER_COLLECTION).add(uuser).await().id
     }
 
   override suspend fun update(user: User): Unit =
     trace(UPDATE_USER_TRACE) {
-      firestore.collection(USER_COLLECTION).document(user.id).set(user).await()
+      firestore.collection(USER_COLLECTION).document(user.userId).set(user).await()
     }
 
-  /*override suspend fun delete(userId: String) {
+  override suspend fun delete_user(userId: String) {
     firestore.collection(USER_COLLECTION).document(userId).delete().await()
-  }*/
+  }
 
   override suspend fun save(task: Task): String =
     trace(SAVE_TASK_TRACE) {
@@ -76,7 +86,7 @@ constructor(private val firestore: FirebaseFirestore, private val auth: AccountS
       firestore.collection(TASK_COLLECTION).document(task.id).set(task).await()
     }
 
-  override suspend fun delete(taskId: String) {
+  override suspend fun delete_task(taskId: String) {
     firestore.collection(TASK_COLLECTION).document(taskId).delete().await()
   }
 

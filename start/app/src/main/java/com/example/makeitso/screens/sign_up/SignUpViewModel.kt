@@ -24,17 +24,21 @@ import com.example.makeitso.common.ext.isValidEmail
 import com.example.makeitso.common.ext.isValidPassword
 import com.example.makeitso.common.ext.passwordMatches
 import com.example.makeitso.common.snackbar.SnackbarManager
+import com.example.makeitso.model.User
 import com.example.makeitso.model.service.AccountService
 import com.example.makeitso.model.service.LogService
+import com.example.makeitso.model.service.StorageService
 import com.example.makeitso.screens.MakeItSoViewModel
 import com.example.makeitso.screens.login.email_info
+import com.example.makeitso.screens.login.user
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
   private val accountService: AccountService,
-  logService: LogService
+  logService: LogService,
+  private val storageService: StorageService
 ) : MakeItSoViewModel(logService) {
   var uiState = mutableStateOf(SignUpUiState())
     private set
@@ -74,6 +78,8 @@ class SignUpViewModel @Inject constructor(
 
     launchCatching {
       accountService.linkAccount(email, password)
+      storageService.save(
+        User(accountService.currentUserId,false,"",""))
       email_info = email
       openAndPopUp(SETTINGS_SCREEN, SIGN_UP_SCREEN)
     }
