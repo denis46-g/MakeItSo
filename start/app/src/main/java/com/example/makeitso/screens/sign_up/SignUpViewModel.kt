@@ -78,8 +78,8 @@ class SignUpViewModel @Inject constructor(
 
     launchCatching {
       accountService.linkAccount(email, password)
-      storageService.save(
-        User(accountService.currentUserId,false,"",""))
+      //storageService.save(
+        //User(accountService.currentUserId,false,"",""))
       email_info = email
       openAndPopUp(SETTINGS_SCREEN, SIGN_UP_SCREEN)
     }

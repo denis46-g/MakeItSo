@@ -10,6 +10,9 @@
     <string name="try_again">Try again</string>
     <string name="ok">OK</string>
 
+    <!-- Google -->
+    <string name="google_sign_in_error">Google authentication failed! Please try again.</string>
+
     <!-- LoginScreen -->
     <string name="sign_in">Sign in</string>
     <string name="sign_in_google">Sign in Google</string>

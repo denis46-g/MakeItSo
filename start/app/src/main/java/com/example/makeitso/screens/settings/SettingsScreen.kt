@@ -16,6 +16,7 @@ limitations under the License.
 
 package com.example.makeitso.screens.settings
 
+import android.app.Activity
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -33,8 +34,11 @@ import com.example.makeitso.common.ext.card
 import com.example.makeitso.common.ext.spacer
 import com.example.makeitso.theme.MakeItSoTheme
 
-var login = false
-var google = false
+// добавлено
+import androidx.compose.ui.platform.LocalContext
+
+//var login = false
+//var google = false
 
 @ExperimentalMaterialApi
 @Composable
@@ -44,12 +48,14 @@ fun SettingsScreen(
   viewModel: SettingsViewModel = hiltViewModel()
 ) {
   val uiState by viewModel.uiState.collectAsState(
-    initial = SettingsUiState(false)
+    initial = SettingsUiState(false),
+    //context = LocalContext.сurrent as Activity
   )
 
   SettingsScreenContent(
     uiState = uiState,
     onLoginClick = { viewModel.onLoginClick(openScreen) },
+    //goodleSignIn = {viewModel.googleSignIn(context)},
     onSignUpClick = { viewModel.onSignUpClick(openScreen) },
     onUserInfoClick = { viewModel.onUserInfoClick(openScreen) },
     onSignOutClick = { viewModel.onSignOutClick(restartApp) },
@@ -80,20 +86,20 @@ fun SettingsScreenContent(
     Spacer(modifier = Modifier.spacer())
 
     if (uiState.isAnonymousAccount) {
-      if(login)
+      /*if(login)
         login = false
       if(google)
-        google = false
+        google = false*/
 
       RegularCardEditor(AppText.sign_in, AppIcon.ic_sign_in, "", Modifier.card()) {
-        login = true
+        //login = true
         onLoginClick()
       }
 
-      RegularCardEditor(AppText.sign_in_google, AppIcon.ic_sign_in, "", Modifier.card()) {
+      /*RegularCardEditor(AppText.sign_in_google, AppIcon.ic_sign_in, "", Modifier.card()) {
         google = true
         onLoginClick()
-      }
+      }*/
 
       RegularCardEditor(AppText.create_account, AppIcon.ic_create_account, "", Modifier.card()) {
         onSignUpClick()

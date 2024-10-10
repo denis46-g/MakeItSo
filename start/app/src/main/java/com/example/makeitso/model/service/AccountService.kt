@@ -25,6 +25,8 @@ interface AccountService {
 
   val currentUser: Flow<User>
 
+  val getEmail: String
+
   suspend fun authenticate(email: String, password: String)
   suspend fun sendRecoveryEmail(email: String)
   suspend fun createAnonymousAccount()

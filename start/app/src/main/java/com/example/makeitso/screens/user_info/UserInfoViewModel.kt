@@ -1,18 +1,12 @@
 package com.example.makeitso.screens.user_info
 
-import android.util.Log
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.SavedStateHandle
-import com.example.makeitso.USER_ID
-import com.example.makeitso.common.ext.idFromParameter
 import com.example.makeitso.model.User
 import com.example.makeitso.model.service.AccountService
 import com.example.makeitso.model.service.LogService
 import com.example.makeitso.model.service.StorageService
 import com.example.makeitso.screens.MakeItSoViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.flatMapLatest
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -20,7 +14,6 @@ import javax.inject.Inject
 @HiltViewModel
 class UserInfoViewModel @Inject constructor(
     //private val accountService: AccountService,
-    savedStateHandle: SavedStateHandle,
     logService: LogService,
     private val storageService: StorageService,
 ) : MakeItSoViewModel(logService) {

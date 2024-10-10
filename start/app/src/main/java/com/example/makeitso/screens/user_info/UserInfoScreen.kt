@@ -47,7 +47,8 @@ import com.example.makeitso.model.User
 import com.example.makeitso.screens.edit_task.EditFlagOption
 import com.example.makeitso.screens.edit_task.EditTaskViewModel
 import com.example.makeitso.screens.login.email_info
-import com.example.makeitso.screens.settings.login
+import com.example.makeitso.screens.login.google_info
+import com.example.makeitso.screens.login.login
 import com.example.makeitso.theme.MakeItSoTheme
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
@@ -105,7 +106,7 @@ fun UserInfoScreenContent(
             UnmutableBasicField("Метод аутентификации: логин", fieldModifier)
         }
         else{
-            UnmutableBasicField("Логин: -", fieldModifier)
+            UnmutableBasicField("Логин: $google_info", fieldModifier)
             UnmutableBasicField("Метод аутентификации: google", fieldModifier)
         }
         //BasicField(AppText.login, task.url, onUrlChange, fieldModifier)

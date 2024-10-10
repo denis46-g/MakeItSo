@@ -45,6 +45,9 @@ class AccountServiceImpl @Inject constructor(private val auth: FirebaseAuth) : A
       awaitClose { auth.removeAuthStateListener(listener) }
     }
 
+  override val getEmail: String
+    get() = auth.currentUser?.email.toString()
+
   override suspend fun authenticate(email: String, password: String) {
     auth.signInWithEmailAndPassword(email, password).await()
   }
