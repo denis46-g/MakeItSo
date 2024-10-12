@@ -76,7 +76,7 @@ class AccountServiceImpl @Inject constructor(private val auth: FirebaseAuth) : A
     auth.signOut()
 
     // Sign the user back in anonymously.
-    //createAnonymousAccount()
+    createAnonymousAccount()
   }
 
   companion object {
